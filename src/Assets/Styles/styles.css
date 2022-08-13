@@ -55,13 +55,76 @@ body {
   width: 100vw;
 }
 .NavBar .timer {
-  margin: 1rem auto 0 3rem;
+  font-size: 1.5rem;
+  margin: 1rem auto 0 4rem;
 }
 .NavBar .logo {
   font-family: "Lobster Two", cursive;
   font-size: 3rem;
+  font-size: 2rem;
   margin: 1rem auto 0 auto;
 }
 .NavBar .restart {
-  margin: 1rem 3rem 0 auto;
+  font-size: 1.5rem;
+  margin: 1rem 4rem 0 auto;
+}
+
+.Cards .first-row {
+  display: flex;
+  margin-top: 3rem;
+}
+.Cards .first-row .pile {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  cursor: pointer;
+}
+.Cards .first-row .pile > img {
+  margin-left: 8rem;
+  height: 150px;
+  width: 110px;
+  border: 0.2rem solid rgba(245, 222, 179, 0.3);
+  border-radius: 5%;
+  border: none;
+}
+.Cards .first-row .preview {
+  height: 150px;
+  width: 110px;
+  border: 0.2rem solid rgba(245, 222, 179, 0.3);
+  border-radius: 5%;
+  margin-left: 2rem;
+  margin-right: auto;
+}
+.Cards .first-row .goals {
+  display: flex;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: 8rem;
+}
+.Cards .first-row .goals div {
+  height: 150px;
+  width: 110px;
+  border: 0.2rem solid rgba(245, 222, 179, 0.3);
+  border-radius: 5%;
+  margin: 0 2rem;
+}
+.Cards .second-row {
+  display: flex;
+  flex-direction: row;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 4rem auto 0 auto;
+}
+.Cards .second-row .column {
+  height: 150px;
+  width: 110px;
+  border: 0.2rem solid rgba(245, 222, 179, 0.3);
+  border-radius: 5%;
+  margin: 0 2rem;
 }/*# sourceMappingURL=styles.css.map */

@@ -48,13 +48,62 @@ body {
   width: 100vw;
 
   .timer {
-    margin: 1rem auto 0 3rem;
+    font-size: 1.5rem;
+    margin: 1rem auto 0 4rem;
   }
   .logo {
     @include logo;
+    font-size: 2rem;
     margin: 1rem auto 0 auto;
   }
   .restart {
-    margin: 1rem 3rem 0 auto;
+    font-size: 1.5rem;
+    margin: 1rem 4rem 0 auto;
+  }
+}
+
+.Cards {
+  .first-row {
+    display: flex;
+    margin-top: 3rem;
+    .pile {
+      width: max-content;
+      height: max-content;
+      cursor: pointer;
+      & > img {
+        margin-left: 8rem;
+        @include card-dimensions;
+        border: none;
+      }
+    }
+
+    .preview {
+      @include card-dimensions;
+      margin-left: 2rem;
+      margin-right: auto;
+    }
+
+    .goals {
+      display: flex;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: 8rem;
+      div {
+        @include card-dimensions;
+        margin: 0 2rem;
+      }
+    }
+  }
+
+  .second-row {
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    margin: 4rem auto 0 auto;
+
+    .column {
+      @include card-dimensions;
+      margin: 0 2rem;
+    }
   }
 }
