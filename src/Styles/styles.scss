@@ -63,18 +63,28 @@ body {
 }
 
 .Cards {
+  .card {
+    position: absolute;
+    @include card-dimensions;
+    border: none;
+    cursor: pointer;
+    z-index: 1;
+  }
+
+  .back {
+    position: absolute;
+    margin-top: 10px;
+    z-index: 2;
+  }
+
   .first-row {
     display: flex;
     margin-top: 3rem;
+
     .pile {
-      width: max-content;
-      height: max-content;
-      cursor: pointer;
-      & > img {
-        margin-left: 8rem;
-        @include card-dimensions;
-        border: none;
-      }
+      @include card-dimensions;
+      margin-left: 8rem;
+      border: none;
     }
 
     .preview {

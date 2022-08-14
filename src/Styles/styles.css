@@ -6,7 +6,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url("../Images/background.jpg");
+  background-image: url("../../public/Images/background.jpg");
   background-size: cover;
   height: 100vh;
   width: 100vw;
@@ -39,7 +39,7 @@ body {
 }
 
 .Game {
-  background-image: url("../Images/background.jpg");
+  background-image: url("../../public/Images/background.jpg");
   background-size: cover;
   height: 100vh;
   width: 100vw;
@@ -69,25 +69,31 @@ body {
   margin: 1rem 4rem 0 auto;
 }
 
+.Cards .card {
+  position: absolute;
+  height: 150px;
+  width: 110px;
+  border: 0.2rem solid rgba(245, 222, 179, 0.3);
+  border-radius: 5%;
+  border: none;
+  cursor: pointer;
+  z-index: 1;
+}
+.Cards .back {
+  position: absolute;
+  margin-top: 10px;
+  z-index: 2;
+}
 .Cards .first-row {
   display: flex;
   margin-top: 3rem;
 }
 .Cards .first-row .pile {
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-  cursor: pointer;
-}
-.Cards .first-row .pile > img {
-  margin-left: 8rem;
   height: 150px;
   width: 110px;
   border: 0.2rem solid rgba(245, 222, 179, 0.3);
   border-radius: 5%;
+  margin-left: 8rem;
   border: none;
 }
 .Cards .first-row .preview {
