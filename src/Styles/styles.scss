@@ -64,17 +64,18 @@ body {
 
 .Cards {
   .card {
-    position: absolute;
     @include card-dimensions;
     border: none;
+    margin-top: -115px;
     cursor: pointer;
-    z-index: 1;
-  }
-
-  .back {
-    position: absolute;
-    margin-top: 10px;
-    z-index: 2;
+    .card-picture {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    &:first-child {
+      margin-top: 0;
+    }
   }
 
   .first-row {

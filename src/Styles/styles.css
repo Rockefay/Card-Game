@@ -70,19 +70,21 @@ body {
 }
 
 .Cards .card {
-  position: absolute;
   height: 150px;
   width: 110px;
   border: 0.2rem solid rgba(245, 222, 179, 0.3);
   border-radius: 5%;
   border: none;
+  margin-top: -115px;
   cursor: pointer;
-  z-index: 1;
 }
-.Cards .back {
-  position: absolute;
-  margin-top: 10px;
-  z-index: 2;
+.Cards .card .card-picture {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.Cards .card:first-child {
+  margin-top: 0;
 }
 .Cards .first-row {
   display: flex;
