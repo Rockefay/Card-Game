@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function NavBar() {
   return (
@@ -6,6 +7,9 @@ function NavBar() {
       <div className="timer">00:00</div>
       <div className="logo">Card Game</div>
       <div className="restart">Restart</div>
+      <Link to="/" className="home">
+        Home
+      </Link>
     </div>
   );
 }

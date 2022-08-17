@@ -14,7 +14,7 @@ export const generateDeck = () => {
   const currentDeck = cloneDeep(deck);
   shuffleArray(currentDeck);
   const result = {
-    columns: [],
+    columns: {},
     goals: {},
     pile: [],
   };

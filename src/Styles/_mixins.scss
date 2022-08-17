@@ -19,6 +19,8 @@
 @mixin text {
   font-family: $body-font;
   font-size: 2rem;
+  color: $primary;
+  text-decoration: none;
 }
 
 @mixin card-dimensions {

@@ -28,6 +28,8 @@ body {
 .Menu .container .button {
   font-family: "Raleway", sans-serif;
   font-size: 2rem;
+  color: wheat;
+  text-decoration: none;
   margin-bottom: 20%;
   height: 3rem;
   width: 7rem;
@@ -48,6 +50,8 @@ body {
 .NavBar {
   font-family: "Raleway", sans-serif;
   font-size: 2rem;
+  color: wheat;
+  text-decoration: none;
   display: flex;
   flex-direction: row;
   color: wheat;
@@ -66,7 +70,15 @@ body {
 }
 .NavBar .restart {
   font-size: 1.5rem;
-  margin: 1rem 4rem 0 auto;
+  margin: 1rem 0.5rem 0 auto;
+}
+.NavBar .home {
+  font-family: "Raleway", sans-serif;
+  font-size: 2rem;
+  color: wheat;
+  text-decoration: none;
+  font-size: 1.5rem;
+  margin: 1rem 4rem 0 0.5rem;
 }
 
 .Cards .card {
@@ -96,7 +108,6 @@ body {
   border: 0.2rem solid rgba(245, 222, 179, 0.3);
   border-radius: 5%;
   margin-left: 8rem;
-  border: none;
 }
 .Cards .first-row .preview {
   height: 150px;

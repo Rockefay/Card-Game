@@ -58,7 +58,13 @@ body {
   }
   .restart {
     font-size: 1.5rem;
-    margin: 1rem 4rem 0 auto;
+    margin: 1rem 0.5rem 0 auto;
+  }
+
+  .home {
+    @include text;
+    font-size: 1.5rem;
+    margin: 1rem 4rem 0 0.5rem;
   }
 }
 
@@ -85,7 +91,6 @@ body {
     .pile {
       @include card-dimensions;
       margin-left: 8rem;
-      border: none;
     }
 
     .preview {

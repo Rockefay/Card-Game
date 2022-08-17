@@ -1,5 +1,5 @@
 import { times } from "lodash";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { generateDeck } from "./actions";
 import Column from "./Column";
 
@@ -7,23 +7,24 @@ let counter = 0;
 
 function Cards() {
   const [currentDeck, setCurrentDeck] = useState(generateDeck());
-  const [preview, setPreview] = useState();
+  const [preview, setPreview] = useState("Images/placeholder.png");
+  const [pile, setPile] = useState("Images/back.png");
   const showPreview = () => {
+    counter++;
+    if (counter === currentDeck.pile.length - 2)
+      setPile("Images/placeholder.png");
+    else setPile("Images/back.png");
     if (counter === currentDeck.pile.length - 1) counter = 0;
 
-    setPreview(currentDeck.pile[counter].src);
-    counter++;
+    if (counter === 0) setPreview("Images/placeholder.png");
+    else setPreview(currentDeck.pile[counter].src);
   };
-
-  useEffect(() => {
-    setPreview("Images/placeholder.png");
-  }, []);
 
   return (
     <div className="Cards">
       <div className="first-row">
         <div className="pile" onClick={showPreview}>
-          <img className="card" src="Images/back.png" alt="" />
+          <img className="card" src={pile} alt="" />
         </div>
         <div className="preview">
           <img className="card" src={preview} alt="" />
