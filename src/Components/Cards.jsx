@@ -1,33 +1,37 @@
 import { times } from "lodash";
 import React, { useState } from "react";
-import { generateDeck } from "./actions";
+import { generateDeck, uncoverCard } from "./actions";
 import Column from "./Column";
 
-let counter = 0;
+const placeholderPath = "Images/placeholder.png";
+const backPath = "Images/back.png";
 
 function Cards() {
   const [currentDeck, setCurrentDeck] = useState(generateDeck());
-  const [preview, setPreview] = useState("Images/placeholder.png");
-  const [pile, setPile] = useState("Images/back.png");
   const showPreview = () => {
-    counter++;
-    if (counter === currentDeck.pile.length - 2)
-      setPile("Images/placeholder.png");
-    else setPile("Images/back.png");
-    if (counter === currentDeck.pile.length - 1) counter = 0;
-
-    if (counter === 0) setPreview("Images/placeholder.png");
-    else setPreview(currentDeck.pile[counter].src);
+    uncoverCard(currentDeck, setCurrentDeck);
   };
 
   return (
     <div className="Cards">
       <div className="first-row">
         <div className="pile" onClick={showPreview}>
-          <img className="card" src={pile} alt="" />
+          <img
+            className="card"
+            src={currentDeck.pile.length ? backPath : placeholderPath}
+            alt=""
+          />
         </div>
         <div className="preview">
-          <img className="card" src={preview} alt="" />
+          <img
+            className="card"
+            src={
+              currentDeck.preview.length
+                ? currentDeck.preview[currentDeck.preview.length - 1].src
+                : placeholderPath
+            }
+            alt=""
+          />
         </div>
         <div className="goals">
           <div className="hearts"></div>
