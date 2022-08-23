@@ -1,12 +1,35 @@
 import React from "react";
+import { useDrag } from "react-dnd";
+import { backPath, placeholderPath } from "../Consts/paths";
 
-function Card({ card }) {
+function Card({ card, path }) {
+  const [{ isDragging }, drag] = useDrag(
+    () => ({
+      type: "card",
+      item: { card: card, path: path },
+      collect: (monitor) => ({
+        isDragging: !!monitor.isDragging(),
+      }),
+    }),
+    [card]
+  );
+
   return (
     <div className="card">
-      {card.uncovered ? (
-        <img className="card-picture" src={card.src} alt="" />
+      {card ? (
+        card.uncovered ? (
+          <img
+            ref={drag}
+            className="card-picture"
+            src={card.src}
+            alt=""
+            style={{ display: isDragging ? "none" : "" }}
+          />
+        ) : (
+          <img className="card-picture" src={backPath} alt="" />
+        )
       ) : (
-        <img className="card-picture" src="Images/back.png" alt="" />
+        <img className="card-picture" src={placeholderPath} alt="" />
       )}
     </div>
   );

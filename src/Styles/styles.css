@@ -132,6 +132,12 @@ body {
   border-radius: 5%;
   margin: 0 2rem;
 }
+.Cards .first-row .goals .card {
+  margin-left: 0px;
+  margin-top: 0px;
+  border: none;
+  position: absolute;
+}
 .Cards .second-row {
   display: flex;
   flex-direction: row;

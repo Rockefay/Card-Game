@@ -1,16 +1,29 @@
 import { times } from "lodash";
 import React, { useState } from "react";
-import { generateDeck, uncoverCard } from "./actions";
+import { useDrop } from "react-dnd";
+import { backPath, placeholderPath } from "../Consts/paths";
+import { addToGoal, generateDeck, uncoverPreviewCard } from "./actions";
+import Card from "./Card";
 import Column from "./Column";
-
-const placeholderPath = "Images/placeholder.png";
-const backPath = "Images/back.png";
 
 function Cards() {
   const [currentDeck, setCurrentDeck] = useState(generateDeck());
   const showPreview = () => {
-    uncoverCard(currentDeck, setCurrentDeck);
+    uncoverPreviewCard(currentDeck, setCurrentDeck);
   };
+
+  const [{ isOver }, drop] = useDrop(
+    () => ({
+      accept: "card",
+      drop: (item) => {
+        addToGoal(currentDeck, setCurrentDeck, item.card, item.path);
+      },
+      collect: (monitor) => ({
+        isOver: !!monitor.isOver(),
+      }),
+    }),
+    [currentDeck]
+  );
 
   return (
     <div className="Cards">
@@ -23,26 +36,32 @@ function Cards() {
           />
         </div>
         <div className="preview">
-          <img
-            className="card"
-            src={
-              currentDeck.preview.length
-                ? currentDeck.preview[currentDeck.preview.length - 1].src
-                : placeholderPath
-            }
-            alt=""
+          <Card
+            card={currentDeck.preview[currentDeck.preview.length - 1]}
+            path="preview"
           />
         </div>
-        <div className="goals">
-          <div className="hearts"></div>
-          <div className="clubs"></div>
-          <div className="diamonds"></div>
-          <div className="spades"></div>
+        <div className="goals" ref={drop}>
+          {Object.keys(currentDeck.goals).map((key) => (
+            <div className={key} key={key}>
+              {currentDeck.goals[key].map((card, index) => (
+                <Card
+                  card={card}
+                  key={`${key}_${index}`}
+                  path={`goals.${key}`}
+                />
+              ))}
+            </div>
+          ))}
         </div>
       </div>
       <div className="second-row">
         {times(7, (c) => (
-          <Column key={`column_${c + 1}`} cards={currentDeck.columns[c + 1]} />
+          <Column
+            key={`column_${c + 1}`}
+            cards={currentDeck.columns[c + 1]}
+            path={`columns.${c + 1}`}
+          />
         ))}
       </div>
     </div>

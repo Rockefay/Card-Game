@@ -108,6 +108,13 @@ body {
         @include card-dimensions;
         margin: 0 2rem;
       }
+
+      .card {
+        margin-left: 0px;
+        margin-top: 0px;
+        border: none;
+        position: absolute;
+      }
     }
   }
 

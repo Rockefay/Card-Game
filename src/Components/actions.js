@@ -16,16 +16,17 @@ export const generateDeck = () => {
   shuffleArray(currentDeck);
   const result = {
     columns: {},
-    goals: {},
+    goals: { hearts: [], clubs: [], diamonds: [], spades: [] },
     pile: [],
     preview: [],
   };
   assignColumns(currentDeck, result.columns);
+  currentDeck.forEach((card) => (card.uncovered = true));
   result.pile = currentDeck;
   return result;
 };
 
-export const uncoverCard = (currentDeck, setCurrentDeck) => {
+export const uncoverPreviewCard = (currentDeck, setCurrentDeck) => {
   const modifiedDeck = cloneDeep(currentDeck);
 
   if (!moveTopCard(modifiedDeck, deckKeys.pile(), deckKeys.preview())) {
@@ -33,6 +34,21 @@ export const uncoverCard = (currentDeck, setCurrentDeck) => {
     modifiedDeck.preview = [];
   }
 
+  setCurrentDeck(modifiedDeck);
+};
+
+export const addToGoal = (currentDeck, setCurrentDeck, draggedCard, path) => {
+  const modifiedDeck = cloneDeep(currentDeck);
+  if (path.includes("columns")) {
+    const currentColumn = path.replace(/^\D+/g, "");
+    path = modifiedDeck.columns[currentColumn];
+    modifiedDeck.goals[draggedCard.name].push(draggedCard);
+    path.pop();
+    path[path.length - 1].uncovered = true;
+  } else {
+    modifiedDeck.goals[draggedCard.name].push(draggedCard);
+    modifiedDeck[path].pop();
+  }
   setCurrentDeck(modifiedDeck);
 };
 
