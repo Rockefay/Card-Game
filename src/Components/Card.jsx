@@ -2,11 +2,11 @@ import React from "react";
 import { useDrag } from "react-dnd";
 import { backPath, placeholderPath } from "../Consts/paths";
 
-function Card({ card, path }) {
+function Card({ card, path, index }) {
   const [{ isDragging }, drag] = useDrag(
     () => ({
       type: "card",
-      item: { card: card, path: path },
+      item: { card: card, path: path, index: index },
       collect: (monitor) => ({
         isDragging: !!monitor.isDragging(),
       }),

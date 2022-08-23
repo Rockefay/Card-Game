@@ -1,4 +1,4 @@
-import { cloneDeep, get } from "lodash";
+import { cloneDeep, dropRight, get, times } from "lodash";
 import deck from "../Consts/deck";
 import deckKeys from "../Consts/deckKeys";
 
@@ -30,7 +30,8 @@ export const uncoverPreviewCard = (currentDeck, setCurrentDeck) => {
   const modifiedDeck = cloneDeep(currentDeck);
 
   if (!moveTopCard(modifiedDeck, deckKeys.pile(), deckKeys.preview())) {
-    modifiedDeck.pile.push(...modifiedDeck.preview);
+    const newPile = modifiedDeck.preview.reverse();
+    modifiedDeck.pile.push(...newPile);
     modifiedDeck.preview = [];
   }
 
@@ -39,15 +40,51 @@ export const uncoverPreviewCard = (currentDeck, setCurrentDeck) => {
 
 export const addToGoal = (currentDeck, setCurrentDeck, draggedCard, path) => {
   const modifiedDeck = cloneDeep(currentDeck);
-  if (path.includes("columns")) {
-    const currentColumn = path.replace(/^\D+/g, "");
-    path = modifiedDeck.columns[currentColumn];
+  const lastGoalCard =
+    modifiedDeck.goals[draggedCard.name][
+      modifiedDeck.goals[draggedCard.name].length - 1
+    ];
+  if (
+    (!lastGoalCard && draggedCard.value === 1) ||
+    lastGoalCard.value === draggedCard.value - 1
+  ) {
+    path = get(modifiedDeck, path);
+
     modifiedDeck.goals[draggedCard.name].push(draggedCard);
     path.pop();
-    path[path.length - 1].uncovered = true;
-  } else {
-    modifiedDeck.goals[draggedCard.name].push(draggedCard);
-    modifiedDeck[path].pop();
+    if (path.length) path[path.length - 1].uncovered = true;
+  }
+  setCurrentDeck(modifiedDeck);
+};
+
+export const addToColumn = (
+  currentDeck,
+  setCurrentDeck,
+  draggedCard,
+  path,
+  index,
+  column
+) => {
+  const modifiedDeck = cloneDeep(currentDeck);
+  const lastCard =
+    modifiedDeck.columns[column][modifiedDeck.columns[column].length - 1];
+
+  if (
+    (!lastCard && draggedCard.value === 13) ||
+    (lastCard.value === draggedCard.value + 1 &&
+      lastCard.color !== draggedCard.color)
+  ) {
+    const currentColumn = path.replace(/^\D+/g, "");
+    const cards = [draggedCard];
+    if (modifiedDeck.columns[currentColumn]) {
+      path = modifiedDeck.columns[currentColumn];
+      for (let i = index + 1; i < path.length; i++) {
+        cards.push(path[i]);
+      }
+    } else path = get(modifiedDeck, path);
+    modifiedDeck.columns[column].push(...cards);
+    times(cards.length, () => path.pop());
+    if (path.length) path[path.length - 1].uncovered = true;
   }
   setCurrentDeck(modifiedDeck);
 };

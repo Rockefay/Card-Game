@@ -12,7 +12,7 @@ function Cards() {
     uncoverPreviewCard(currentDeck, setCurrentDeck);
   };
 
-  const [{ isOver }, drop] = useDrop(
+  const [{ isOver }, dropToGoal] = useDrop(
     () => ({
       accept: "card",
       drop: (item) => {
@@ -41,7 +41,7 @@ function Cards() {
             path="preview"
           />
         </div>
-        <div className="goals" ref={drop}>
+        <div className="goals" ref={dropToGoal}>
           {Object.keys(currentDeck.goals).map((key) => (
             <div className={key} key={key}>
               {currentDeck.goals[key].map((card, index) => (
@@ -61,6 +61,9 @@ function Cards() {
             key={`column_${c + 1}`}
             cards={currentDeck.columns[c + 1]}
             path={`columns.${c + 1}`}
+            column={c + 1}
+            currentDeck={currentDeck}
+            setCurrentDeck={setCurrentDeck}
           />
         ))}
       </div>
