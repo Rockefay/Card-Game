@@ -1,4 +1,4 @@
-import { cloneDeep, dropRight, get, times } from "lodash";
+import { cloneDeep, get, times } from "lodash";
 import deck from "../Consts/deck";
 import deckKeys from "../Consts/deckKeys";
 
@@ -40,11 +40,13 @@ export const uncoverPreviewCard = (currentDeck, setCurrentDeck) => {
 
 export const addToGoal = (currentDeck, setCurrentDeck, draggedCard, path) => {
   const modifiedDeck = cloneDeep(currentDeck);
-  const lastGoalCard =
+  let lastGoalCard =
     modifiedDeck.goals[draggedCard.name][
       modifiedDeck.goals[draggedCard.name].length - 1
     ];
-  if (
+
+  if (!lastGoalCard && draggedCard.value !== 1) {
+  } else if (
     (!lastGoalCard && draggedCard.value === 1) ||
     lastGoalCard.value === draggedCard.value - 1
   ) {
@@ -69,7 +71,8 @@ export const addToColumn = (
   const lastCard =
     modifiedDeck.columns[column][modifiedDeck.columns[column].length - 1];
 
-  if (
+  if (!lastCard && draggedCard.value !== 13) {
+  } else if (
     (!lastCard && draggedCard.value === 13) ||
     (lastCard.value === draggedCard.value + 1 &&
       lastCard.color !== draggedCard.color)
