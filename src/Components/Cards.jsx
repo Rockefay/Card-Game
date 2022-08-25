@@ -1,13 +1,28 @@
 import { times } from "lodash";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDrop } from "react-dnd";
+import deck from "../Consts/deck";
 import { backPath, placeholderPath } from "../Consts/paths";
-import { addToGoal, generateDeck, uncoverPreviewCard } from "./actions";
+import { addToGoal, uncoverPreviewCard } from "./actions";
 import Card from "./Card";
 import Column from "./Column";
 
-function Cards() {
-  const [currentDeck, setCurrentDeck] = useState(generateDeck());
+function Cards({ currentDeck, setCurrentDeck }) {
+  const [counter, setCounter] = useState(0);
+
+  useEffect(() => {
+    setCounter(counter + 1);
+    if (
+      deck.length ===
+      currentDeck.goals.hearts.length +
+        currentDeck.goals.clubs.length +
+        currentDeck.goals.diamonds.length +
+        currentDeck.goals.spades.length
+    ) {
+      console.log(counter);
+    }
+  }, [currentDeck]);
+
   const showPreview = () => {
     uncoverPreviewCard(currentDeck, setCurrentDeck);
   };
@@ -24,7 +39,6 @@ function Cards() {
     }),
     [currentDeck]
   );
-
   return (
     <div className="Cards">
       <div className="first-row">
@@ -39,6 +53,8 @@ function Cards() {
           <Card
             card={currentDeck.preview[currentDeck.preview.length - 1]}
             path="preview"
+            currentDeck={currentDeck}
+            setCurrentDeck={setCurrentDeck}
           />
         </div>
         <div className="goals" ref={dropToGoal}>
@@ -49,6 +65,8 @@ function Cards() {
                   card={card}
                   key={`${key}_${index}`}
                   path={`goals.${key}`}
+                  currentDeck={currentDeck}
+                  setCurrentDeck={setCurrentDeck}
                 />
               ))}
             </div>

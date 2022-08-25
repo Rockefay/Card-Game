@@ -40,22 +40,7 @@ export const uncoverPreviewCard = (currentDeck, setCurrentDeck) => {
 
 export const addToGoal = (currentDeck, setCurrentDeck, draggedCard, path) => {
   const modifiedDeck = cloneDeep(currentDeck);
-  let lastGoalCard =
-    modifiedDeck.goals[draggedCard.name][
-      modifiedDeck.goals[draggedCard.name].length - 1
-    ];
-
-  if (!lastGoalCard && draggedCard.value !== 1) {
-  } else if (
-    (!lastGoalCard && draggedCard.value === 1) ||
-    lastGoalCard.value === draggedCard.value - 1
-  ) {
-    path = get(modifiedDeck, path);
-
-    modifiedDeck.goals[draggedCard.name].push(draggedCard);
-    path.pop();
-    if (path.length) path[path.length - 1].uncovered = true;
-  }
+  moveToGoal(modifiedDeck, draggedCard, path);
   setCurrentDeck(modifiedDeck);
 };
 
@@ -71,11 +56,10 @@ export const addToColumn = (
   const lastCard =
     modifiedDeck.columns[column][modifiedDeck.columns[column].length - 1];
 
-  if (!lastCard && draggedCard.value !== 13) {
-  } else if (
+  if (
     (!lastCard && draggedCard.value === 13) ||
-    (lastCard.value === draggedCard.value + 1 &&
-      lastCard.color !== draggedCard.color)
+    lastCard?.value === draggedCard.value + 1 /*&&
+  lastCard.color !== draggedCard.color*/
   ) {
     const currentColumn = path.replace(/^\D+/g, "");
     const cards = [draggedCard];
@@ -90,6 +74,41 @@ export const addToColumn = (
     if (path.length) path[path.length - 1].uncovered = true;
   }
   setCurrentDeck(modifiedDeck);
+};
+
+export const fillGoals = (currentDeck, setCurrentDeck) => {
+  const modifiedDeck = cloneDeep(currentDeck);
+  let cardMoved = false;
+  do {
+    cardMoved = false;
+    for (let i = 1; i <= Object.keys(modifiedDeck.columns).length; i++) {
+      const lastCard =
+        modifiedDeck.columns[i][modifiedDeck.columns[i].length - 1];
+      if (lastCard)
+        cardMoved =
+          moveToGoal(modifiedDeck, lastCard, `columns.${i}`) || cardMoved;
+    }
+  } while (cardMoved);
+  setCurrentDeck(modifiedDeck);
+};
+
+const moveToGoal = (modifiedDeck, draggedCard, path) => {
+  let lastGoalCard =
+    modifiedDeck.goals[draggedCard.name][
+      modifiedDeck.goals[draggedCard.name].length - 1
+    ];
+
+  if (
+    (!lastGoalCard && draggedCard.value === 1) ||
+    lastGoalCard?.value === draggedCard.value - 1
+  ) {
+    path = get(modifiedDeck, path);
+    modifiedDeck.goals[draggedCard.name].push(draggedCard);
+    path.pop();
+    if (path.length) path[path.length - 1].uncovered = true;
+    return true;
+  }
+  return false;
 };
 
 const assignColumns = (currentDeck, columns) => {

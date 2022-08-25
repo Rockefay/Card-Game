@@ -1,12 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { fillGoals, generateDeck } from "./actions";
 
-function NavBar() {
+function NavBar({ currentDeck, setCurrentDeck }) {
   return (
     <div className="NavBar">
-      <div className="timer">00:00:00</div>
+      <div
+        className="filler"
+        onClick={() => fillGoals(currentDeck, setCurrentDeck)}
+      >
+        Fill Goals
+      </div>
       <div className="logo">Card Game</div>
-      <div className="restart" onClick={() => window.location.reload()}>
+      <div
+        className="restart"
+        onClick={() => {
+          setCurrentDeck(generateDeck());
+        }}
+      >
         Restart
       </div>
       <Link to="/" className="home">

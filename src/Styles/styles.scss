@@ -48,9 +48,10 @@ body {
   height: 3rem;
   width: 100vw;
 
-  .timer {
+  .filler {
     font-size: 1.5rem;
     margin: 1rem auto 0 4rem;
+    cursor: pointer;
   }
   .logo {
     @include logo;
@@ -60,12 +61,14 @@ body {
   .restart {
     font-size: 1.5rem;
     margin: 1rem 0.5rem 0 auto;
+    cursor: pointer;
   }
 
   .home {
     @include text;
     font-size: 1.5rem;
     margin: 1rem 4rem 0 0.5rem;
+    cursor: pointer;
   }
 }
 

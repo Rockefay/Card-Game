@@ -27,7 +27,14 @@ function Column({ cards, path, currentDeck, setCurrentDeck, column }) {
   return (
     <div className="column" ref={dropToColumn}>
       {cards.map((c, i) => (
-        <Card key={`card_${i}`} card={c} path={path} index={i} />
+        <Card
+          key={`card_${i}`}
+          card={c}
+          path={path}
+          index={i}
+          currentDeck={currentDeck}
+          setCurrentDeck={setCurrentDeck}
+        />
       ))}
     </div>
   );
