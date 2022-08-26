@@ -159,4 +159,56 @@ body {
   border: 0.2rem solid rgba(245, 222, 179, 0.3);
   border-radius: 5%;
   margin: 0 2rem;
+}
+
+.EndGame {
+  background-image: url("../../public/Images/background.jpg");
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+  font-family: "Raleway", sans-serif;
+  font-size: 2rem;
+  color: wheat;
+  text-decoration: none;
+  z-index: 10;
+  position: absolute;
+}
+.EndGame .container {
+  height: 40rem;
+  width: 30rem;
+}
+.EndGame .container .logo {
+  margin-top: 1.5rem;
+}
+.EndGame .container .player-name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+.EndGame .container .player-name input {
+  border: transparent;
+  background-color: wheat;
+  width: auto;
+  height: 1.5rem;
+  text-align: center;
+  margin-right: 0.5rem;
+}
+.EndGame .container .player-name button {
+  font-family: "Raleway", sans-serif;
+  font-size: 2rem;
+  color: wheat;
+  text-decoration: none;
+  background-color: transparent;
+  border: none;
+  font-size: 1.5rem;
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+.EndGame .container .scores {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 3rem;
 }/*# sourceMappingURL=styles.css.map */

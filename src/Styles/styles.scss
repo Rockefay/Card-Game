@@ -134,3 +134,47 @@ body {
     }
   }
 }
+
+.EndGame {
+  @include background;
+  @include text;
+  z-index: 10;
+  position: absolute;
+
+  .container {
+    height: 40rem;
+    width: 30rem;
+
+    .logo {
+      margin-top: 1.5rem;
+    }
+
+    .player-name {
+      @include flex-center;
+      margin-top: 1rem;
+      input {
+        border: transparent;
+        background-color: $primary;
+        width: auto;
+        height: 1.5rem;
+        text-align: center;
+        margin-right: 0.5rem;
+      }
+
+      button {
+        @include text;
+        background-color: transparent;
+        border: none;
+        font-size: 1.5rem;
+        margin-left: 0.5rem;
+        cursor: pointer;
+      }
+    }
+
+    .scores {
+      @include flex-center;
+      flex-direction: column;
+      margin: 3rem;
+    }
+  }
+}

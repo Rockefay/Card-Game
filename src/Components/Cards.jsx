@@ -19,7 +19,8 @@ function Cards({ currentDeck, setCurrentDeck }) {
         currentDeck.goals.diamonds.length +
         currentDeck.goals.spades.length
     ) {
-      console.log(counter);
+      window.location = "/endgame";
+      localStorage.setItem("recentScore", counter);
     }
   }, [currentDeck]);
 

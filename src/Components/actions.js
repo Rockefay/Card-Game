@@ -2,6 +2,30 @@ import { cloneDeep, get, times } from "lodash";
 import deck from "../Consts/deck";
 import deckKeys from "../Consts/deckKeys";
 
+export const addScore = (lastScore, player) => {
+  const scores = JSON.parse(localStorage.getItem("scores")) || [];
+  const lastPlay = { name: player, score: lastScore };
+  scores.push(lastPlay);
+  scores.sort((a, b) => b.score - a.score);
+  scores.splice(5);
+  localStorage.setItem("scores", JSON.stringify(scores));
+};
+
+export const showScore = (setScoreBoard) => {
+  const scores = JSON.parse(localStorage.getItem("scores")) || [];
+  for (let i = 0; i < 5; i++) {
+    setScoreBoard(
+      times(scores.length, (i) => {
+        return (
+          <div key={i}>
+            {i + 1}. {scores[i].name} - {scores[i].score}
+          </div>
+        );
+      })
+    );
+  }
+};
+
 export const shuffleArray = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -58,8 +82,8 @@ export const addToColumn = (
 
   if (
     (!lastCard && draggedCard.value === 13) ||
-    lastCard?.value === draggedCard.value + 1 /*&&
-  lastCard.color !== draggedCard.color*/
+    (lastCard?.value === draggedCard.value + 1 &&
+      lastCard.color !== draggedCard.color)
   ) {
     const currentColumn = path.replace(/^\D+/g, "");
     const cards = [draggedCard];
