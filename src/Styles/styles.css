@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  overflow: hidden;
 }
 
 .Menu {
@@ -50,6 +51,25 @@ body {
       -ms-user-select: none;
           user-select: none;
 }
+.Game .card {
+  height: 140px;
+  width: 100px;
+  border: 0.2rem solid rgba(245, 222, 179, 0.3);
+  border-radius: 5%;
+  border: none;
+  margin-top: -115px;
+  cursor: pointer;
+}
+.Game .card .card-picture {
+  width: 100%;
+  height: 100%;
+}
+.Game .card:first-child {
+  margin-top: 0;
+}
+.Game .dragged {
+  position: absolute;
+}
 
 .NavBar {
   font-family: "Raleway", sans-serif;
@@ -88,37 +108,20 @@ body {
   cursor: pointer;
 }
 
-.Cards .card {
-  height: 150px;
-  width: 110px;
-  border: 0.2rem solid rgba(245, 222, 179, 0.3);
-  border-radius: 5%;
-  border: none;
-  margin-top: -115px;
-  cursor: pointer;
-}
-.Cards .card .card-picture {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-.Cards .card:first-child {
-  margin-top: 0;
-}
 .Cards .first-row {
   display: flex;
   margin-top: 3rem;
 }
 .Cards .first-row .pile {
-  height: 150px;
-  width: 110px;
+  height: 140px;
+  width: 100px;
   border: 0.2rem solid rgba(245, 222, 179, 0.3);
   border-radius: 5%;
   margin-left: 8rem;
 }
 .Cards .first-row .preview {
-  height: 150px;
-  width: 110px;
+  height: 140px;
+  width: 100px;
   border: 0.2rem solid rgba(245, 222, 179, 0.3);
   border-radius: 5%;
   margin-left: 2rem;
@@ -133,8 +136,8 @@ body {
   margin-right: 8rem;
 }
 .Cards .first-row .goals div {
-  height: 150px;
-  width: 110px;
+  height: 140px;
+  width: 100px;
   border: 0.2rem solid rgba(245, 222, 179, 0.3);
   border-radius: 5%;
   margin: 0 2rem;
@@ -154,8 +157,8 @@ body {
   margin: 4rem auto 0 auto;
 }
 .Cards .second-row .column {
-  height: 150px;
-  width: 110px;
+  height: 140px;
+  width: 100px;
   border: 0.2rem solid rgba(245, 222, 179, 0.3);
   border-radius: 5%;
   margin: 0 2rem;
@@ -211,4 +214,24 @@ body {
   align-items: center;
   flex-direction: column;
   margin: 3rem;
+}
+.EndGame .container .navigate {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 1rem;
+  width: 100%;
+}
+.EndGame .container .navigate .home {
+  margin-right: 2rem;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.EndGame .container .navigate .again {
+  margin-left: 2rem;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
 }/*# sourceMappingURL=styles.css.map */

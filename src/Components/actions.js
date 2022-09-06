@@ -6,7 +6,7 @@ export const addScore = (lastScore, player) => {
   const scores = JSON.parse(localStorage.getItem("scores")) || [];
   const lastPlay = { name: player, score: lastScore };
   scores.push(lastPlay);
-  scores.sort((a, b) => b.score - a.score);
+  scores.sort((a, b) => a.score - b.score);
   scores.splice(5);
   localStorage.setItem("scores", JSON.stringify(scores));
 };
@@ -26,15 +26,6 @@ export const showScore = (setScoreBoard) => {
   }
 };
 
-export const shuffleArray = (array) => {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    const temp = array[i];
-    array[i] = array[j];
-    array[j] = temp;
-  }
-};
-
 export const generateDeck = () => {
   const currentDeck = cloneDeep(deck);
   shuffleArray(currentDeck);
@@ -50,21 +41,42 @@ export const generateDeck = () => {
   return result;
 };
 
-export const uncoverPreviewCard = (currentDeck, setCurrentDeck) => {
+export const uncoverPreviewCard = (
+  currentDeck,
+  setCurrentDeck,
+  counter,
+  setCounter
+) => {
   const modifiedDeck = cloneDeep(currentDeck);
 
-  if (!moveTopCard(modifiedDeck, deckKeys.pile(), deckKeys.preview())) {
+  if (
+    !moveTopCard(
+      modifiedDeck,
+      deckKeys.pile(),
+      deckKeys.preview(),
+      counter,
+      setCounter
+    )
+  ) {
     const newPile = modifiedDeck.preview.reverse();
     modifiedDeck.pile.push(...newPile);
     modifiedDeck.preview = [];
+    setCounter(counter + 1);
   }
 
   setCurrentDeck(modifiedDeck);
 };
 
-export const addToGoal = (currentDeck, setCurrentDeck, draggedCard, path) => {
+export const addToGoal = (
+  currentDeck,
+  setCurrentDeck,
+  draggedCard,
+  path,
+  counter,
+  setCounter
+) => {
   const modifiedDeck = cloneDeep(currentDeck);
-  moveToGoal(modifiedDeck, draggedCard, path);
+  moveToGoal(modifiedDeck, draggedCard, path, counter, setCounter);
   setCurrentDeck(modifiedDeck);
 };
 
@@ -74,16 +86,19 @@ export const addToColumn = (
   draggedCard,
   path,
   index,
-  column
+  column,
+  counter,
+  setCounter
 ) => {
   const modifiedDeck = cloneDeep(currentDeck);
   const lastCard =
     modifiedDeck.columns[column][modifiedDeck.columns[column].length - 1];
 
   if (
-    (!lastCard && draggedCard.value === 13) ||
-    (lastCard?.value === draggedCard.value + 1 &&
-      lastCard.color !== draggedCard.color)
+    ((!lastCard && draggedCard.value === 13) ||
+      (lastCard?.value === draggedCard.value + 1 &&
+        lastCard.color !== draggedCard.color)) &&
+    modifiedDeck.columns[column].length <= 20
   ) {
     const currentColumn = path.replace(/^\D+/g, "");
     const cards = [draggedCard];
@@ -96,11 +111,12 @@ export const addToColumn = (
     modifiedDeck.columns[column].push(...cards);
     times(cards.length, () => path.pop());
     if (path.length) path[path.length - 1].uncovered = true;
+    setCounter(counter + 1);
   }
   setCurrentDeck(modifiedDeck);
 };
 
-export const fillGoals = (currentDeck, setCurrentDeck) => {
+export const fillGoals = (currentDeck, setCurrentDeck, counter, setCounter) => {
   const modifiedDeck = cloneDeep(currentDeck);
   let cardMoved = false;
   do {
@@ -110,13 +126,28 @@ export const fillGoals = (currentDeck, setCurrentDeck) => {
         modifiedDeck.columns[i][modifiedDeck.columns[i].length - 1];
       if (lastCard)
         cardMoved =
-          moveToGoal(modifiedDeck, lastCard, `columns.${i}`) || cardMoved;
+          moveToGoal(
+            modifiedDeck,
+            lastCard,
+            `columns.${i}`,
+            counter,
+            setCounter
+          ) || cardMoved;
     }
   } while (cardMoved);
   setCurrentDeck(modifiedDeck);
 };
 
-const moveToGoal = (modifiedDeck, draggedCard, path) => {
+const shuffleArray = (array) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+};
+
+const moveToGoal = (modifiedDeck, draggedCard, path, counter, setCounter) => {
   let lastGoalCard =
     modifiedDeck.goals[draggedCard.name][
       modifiedDeck.goals[draggedCard.name].length - 1
@@ -130,6 +161,7 @@ const moveToGoal = (modifiedDeck, draggedCard, path) => {
     modifiedDeck.goals[draggedCard.name].push(draggedCard);
     path.pop();
     if (path.length) path[path.length - 1].uncovered = true;
+    setCounter(counter + 1);
     return true;
   }
   return false;
@@ -142,10 +174,11 @@ const assignColumns = (currentDeck, columns) => {
   }
 };
 
-const moveTopCard = (currentDeck, from, to) => {
+const moveTopCard = (currentDeck, from, to, counter, setCounter) => {
   const fromCollection = get(currentDeck, from, []);
   if (!fromCollection.length) return false;
   const toCollection = get(currentDeck, to, []);
   toCollection.push(fromCollection.pop());
+  setCounter(counter + 1);
   return true;
 };

@@ -3,6 +3,7 @@
 
 body {
   margin: 0;
+  overflow: hidden;
 }
 
 .Menu {
@@ -38,6 +39,24 @@ body {
 .Game {
   @include background;
   user-select: none;
+
+  .card {
+    @include card-dimensions;
+    border: none;
+    margin-top: -115px;
+    cursor: pointer;
+    .card-picture {
+      width: 100%;
+      height: 100%;
+    }
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  .dragged {
+    position: absolute;
+  }
 }
 
 .NavBar {
@@ -73,21 +92,6 @@ body {
 }
 
 .Cards {
-  .card {
-    @include card-dimensions;
-    border: none;
-    margin-top: -115px;
-    cursor: pointer;
-    .card-picture {
-      position: relative;
-      width: 100%;
-      height: 100%;
-    }
-    &:first-child {
-      margin-top: 0;
-    }
-  }
-
   .first-row {
     display: flex;
     margin-top: 3rem;
@@ -175,6 +179,21 @@ body {
       @include flex-center;
       flex-direction: column;
       margin: 3rem;
+    }
+    .navigate {
+      @include flex-center;
+      position: absolute;
+      bottom: 1rem;
+      width: 100%;
+      .home {
+        margin-right: 2rem;
+        width: fit-content;
+      }
+
+      .again {
+        margin-left: 2rem;
+        width: fit-content;
+      }
     }
   }
 }

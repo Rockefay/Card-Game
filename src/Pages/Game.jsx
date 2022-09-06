@@ -7,11 +7,22 @@ import NavBar from "../Components/NavBar";
 
 function Game() {
   const [currentDeck, setCurrentDeck] = useState(generateDeck());
+  const [counter, setCounter] = useState(0);
   return (
     <div className="Game">
-      <NavBar currentDeck={currentDeck} setCurrentDeck={setCurrentDeck} />
+      <NavBar
+        currentDeck={currentDeck}
+        setCurrentDeck={setCurrentDeck}
+        counter={counter}
+        setCounter={setCounter}
+      />
       <DndProvider backend={HTML5Backend}>
-        <Cards currentDeck={currentDeck} setCurrentDeck={setCurrentDeck} />
+        <Cards
+          currentDeck={currentDeck}
+          setCurrentDeck={setCurrentDeck}
+          counter={counter}
+          setCounter={setCounter}
+        />
       </DndProvider>
     </div>
   );

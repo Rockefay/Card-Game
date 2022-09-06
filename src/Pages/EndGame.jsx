@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { addScore, showScore } from "../Components/actions";
 
 function EndGame() {
@@ -37,6 +38,14 @@ function EndGame() {
             </button>
           </form>
           <div className="scores">{scoreBoard}</div>
+          <div className="navigate">
+            <Link to="/" className="button home">
+              Home
+            </Link>
+            <Link to="/game" className="button again">
+              Play Again
+            </Link>
+          </div>
         </div>
       </div>
     </div>
